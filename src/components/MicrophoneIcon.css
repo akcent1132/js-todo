@@ -1,0 +1,168 @@
+.microphone-icon {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* Microphone capsule/head */
+.mic-capsule {
+  width: calc(var(--mic-size) * 0.5);
+  height: calc(var(--mic-size) * 0.7);
+  background-color: var(--mic-color);
+  border-radius: calc(var(--mic-size) * 0.25) calc(var(--mic-size) * 0.25) calc(var(--mic-size) * 0.1) calc(var(--mic-size) * 0.1);
+  position: relative;
+  z-index: 3;
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.3),
+              inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Microphone body */
+.mic-body {
+  width: calc(var(--mic-size) * 0.15);
+  height: calc(var(--mic-size) * 0.3);
+  background-color: var(--mic-color);
+  margin-top: calc(var(--mic-size) * -0.05);
+  z-index: 2;
+  position: relative;
+  border-radius: 0 0 calc(var(--mic-size) * 0.075) calc(var(--mic-size) * 0.075);
+}
+
+/* Microphone stand container */
+.mic-stand {
+  position: relative;
+  margin-top: calc(var(--mic-size) * 0.05);
+  z-index: 1;
+}
+
+/* Vertical part of the stand */
+.mic-stand-vertical {
+  width: calc(var(--mic-size) * 0.08);
+  height: calc(var(--mic-size) * 0.25);
+  background-color: var(--mic-color);
+  margin: 0 auto;
+  border-radius: calc(var(--mic-size) * 0.04);
+}
+
+/* Horizontal base of the stand */
+.mic-stand-horizontal {
+  width: calc(var(--mic-size) * 0.6);
+  height: calc(var(--mic-size) * 0.08);
+  background-color: var(--mic-color);
+  border-radius: calc(var(--mic-size) * 0.04);
+  margin-top: calc(var(--mic-size) * -0.04);
+}
+
+/* Sound waves animation */
+.sound-waves {
+  position: absolute;
+  right: calc(var(--mic-size) * -0.3);
+  top: calc(var(--mic-size) * 0.2);
+  z-index: 1;
+}
+
+.wave {
+  position: absolute;
+  border: 2px solid var(--mic-color);
+  border-radius: 50%;
+  opacity: 0;
+  animation: soundWave 2s infinite ease-out;
+}
+
+.wave-1 {
+  width: calc(var(--mic-size) * 0.3);
+  height: calc(var(--mic-size) * 0.3);
+  animation-delay: 0s;
+}
+
+.wave-2 {
+  width: calc(var(--mic-size) * 0.5);
+  height: calc(var(--mic-size) * 0.5);
+  top: calc(var(--mic-size) * -0.1);
+  left: calc(var(--mic-size) * -0.1);
+  animation-delay: 0.3s;
+}
+
+.wave-3 {
+  width: calc(var(--mic-size) * 0.7);
+  height: calc(var(--mic-size) * 0.7);
+  top: calc(var(--mic-size) * -0.2);
+  left: calc(var(--mic-size) * -0.2);
+  animation-delay: 0.6s;
+}
+
+@keyframes soundWave {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.2);
+  }
+}
+
+/* Hover effects */
+.microphone-icon:hover .mic-capsule {
+  background-color: #007AFF;
+  transition: background-color 0.3s ease;
+}
+
+.microphone-icon:hover .mic-body,
+.microphone-icon:hover .mic-stand-vertical,
+.microphone-icon:hover .mic-stand-horizontal {
+  background-color: #007AFF;
+  transition: background-color 0.3s ease;
+}
+
+.microphone-icon:hover .wave {
+  border-color: #007AFF;
+  animation-duration: 1s;
+}
+
+/* Variants for different states */
+.microphone-icon.recording .mic-capsule {
+  background-color: #FF3B30;
+  animation: pulse 1s infinite ease-in-out;
+}
+
+.microphone-icon.recording .wave {
+  border-color: #FF3B30;
+  animation-duration: 0.8s;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+/* Muted state */
+.microphone-icon.muted {
+  opacity: 0.5;
+}
+
+.microphone-icon.muted .sound-waves {
+  display: none;
+}
+
+.microphone-icon.muted::after {
+  content: '';
+  position: absolute;
+  top: calc(var(--mic-size) * 0.1);
+  left: calc(var(--mic-size) * 0.1);
+  right: calc(var(--mic-size) * 0.1);
+  bottom: calc(var(--mic-size) * 0.3);
+  background: linear-gradient(45deg, transparent 40%, #FF3B30 40%, #FF3B30 60%, transparent 60%);
+  z-index: 10;
+  pointer-events: none;
+}
